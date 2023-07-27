@@ -1,0 +1,424 @@
+﻿@using Lighting.Areas.Identity.Data
+@{
+    ViewData["Title"] = "Project_Detail";
+    Layout = "~/Views/Shared/Layout/Frontend_Layout.cshtml";
+    var lang = Context.Request.Cookies["lang"];
+    var category_name = (Lighting.Areas.Identity.Data.Category_Project)ViewData["category"];
+}
+@model Lighting.Models.InputFilterModels.ProjectRef.Output_ProjectRefVM
+
+<!---------- PROJECT - REF :: DETAIL ---------->
+<div class="content-padding m-pad">
+    <div class="container-fluid">
+        <div class="wrap-pad project-page">
+            <div class="row">
+                <div class="col">
+                    @if(lang == "EN")
+                    {
+                        <h2>@category_name.Name_EN</h2>
+                    }
+                    else
+                    {
+                        <h2>@category_name.Name_TH</h2>
+                    }
+                </div>
+            </div>
+            @if (lang == "EN")
+            {
+                <div class="row justify-content-center">
+                    <div class="col-lg-11 col-md-12 col-12">
+                        <div class="row">
+                            <div class="col">
+                                <h4>@Model.Title_EN</h4>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="projectGal-slide detail_slide">
+                                    <div id="big" class="owl-carousel owl-theme big-img slider">
+                                        @foreach(var img in Model.Image_List){
+                                        <a class="item" data-fancybox="gallery" href="~/@img"><img src="~/@img"></a>
+                                        }
+                                    </div>
+                                    <div id="thumbs" class="owl-carousel owl-theme thumbs-img navigation-thumbs">
+                                        @foreach(var img in Model.Image_List){
+                                        <div class="item"><img src="~/@img"></div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-info">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="project-detail"><strong>Location :</strong>@Model.Location_EN</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="project-detail"><strong>Client :</strong>@Model.Client</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="project-detail"><strong>Lighting Design & Solution :</strong>@Model.Design_Solution</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="project-detail"><strong>Photo Credit :</strong>@Model.Photo_Credit</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="txt-content indent f-17">
+                                        @Html.Raw(Model.Content_EN)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="content-center">
+                            <a class="downloadBD-button" href="@Url.Action("DownloadFile","project",new {path = Model.File_Download})" target="_blank">
+                                <div><i class="fas fa-arrow-alt-circle-down"></i>@Model.File_Download.Split("\\").Reverse().First()</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row justify-content-center">
+                    <div class="col-lg-11 col-md-12 col-12">
+                        <div class="row">
+                            <div class="col">
+                                <h4>@Model.Title_TH</h4>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="projectGal-slide detail_slide">
+                                    <div id="big" class="owl-carousel owl-theme big-img slider">
+                                        @if (Model.Image_List != null)
+                                        {
+                                            foreach (var img in Model.Image_List)
+                                            {
+                                                <a class="item" data-fancybox="gallery" href="~/@img"><img src="~/@img"></a>
+                                            }
+
+                                        }
+                                    </div>
+                                    <div id="thumbs" class="owl-carousel owl-theme thumbs-img navigation-thumbs">
+                                        @if (Model.Image_List != null)
+                                        {
+                                            @foreach (var img in Model.Image_List)
+                                            {
+                                                <div class="item"><img src="~/@img"></div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-info">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="project-detail"><strong>Location :</strong>@Model.Location_TH</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="project-detail"><strong>Client :</strong>@Model.Client</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="project-detail"><strong>Lighting Design & Solution :</strong>@Model.Design_Solution</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="project-detail"><strong>Photo Credit :</strong>@Model.Photo_Credit</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="txt-content indent f-17">
+                                        @Html.Raw(Model.Content_TH)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="content-center">
+                            <a class="downloadBD-button" href="@Url.Action("DownloadFile","project",new {path = Model.File_Download})" target="_blank">
+                                <div><i class="fas fa-arrow-alt-circle-down"></i>@Model.File_Download.Split("\\").Reverse().First()</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!---------- END PROJECT - REF :: DETAIL ---------->
+
+
+            <div class="row">
+                <div class="col">
+                    <h5>Lighting Solution</h5>
+                </div>
+            </div>
+            <div class="three-colPad">
+                <div class="row">
+                    @if (ViewData["products"] is not null)
+                    {
+                        foreach (var product in (IEnumerable<Product>)ViewData["products"])
+                        {
+                            <div class="col-lg-3 col-md-4 col-6">
+                                <a class="productBox" href="@Url.Action("Product_Detail","Product",new {categoryId=product.Product_CategoryId, sub_categoryId=product.Product_ModelId,id=product.Id})">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="img-width">
+                                                <img src="~/@product.Preview_Image">
+                                                <ul class="hover-detail">
+                                                    <li>Dimension : @product.Dimension</li>
+                                                    <li>Power : @product.Power</li>
+                                                    <li>IP Rating : @product.IP_Rating</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="productBox-topic">
+                                                <p>@product.Model</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!---------- PROJECT - REF :: OTHER PROJECT ---------->
+<div class="container-fluid other-project">
+    <div class="blueBG">
+        <div class="wrap-pad">
+            <div class="row">
+                <div class="col">
+                    <h4>PROJECT IN THE SAME CATEGORY</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="slide-navButton">
+                        <div class="project-slide owl-carousel owl-theme">
+                            @if (ViewData["categorys"] is not null)
+                            {
+                                foreach (var cat in (IEnumerable<ProjectRef>)ViewData["categorys"])
+                                {
+                                    <div class="items">
+                                        <a class="contentBox" href="@Url.Action("Project_Detail","Project",new {id = cat.Id})">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="img-width"><img src="~/@cat.Profile_Image"></div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="contentBox-topic">
+                                                        @if (lang == "EN")
+                                                        {
+                                                            <p>@cat.Location_EN</p>
+                                                        }else
+                                                        {
+                                                            <p>@cat.Location_TH</p>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="content-center">
+                        <a class="buttonB" href="@Url.Action("Project_Category","Project")"><i class="fas fa-long-arrow-alt-left"></i>Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+
+    <script>
+        $('.detail_slide').each(function () {
+            (function (_e) {
+                var sync1 = $(_e).find(".slider");
+                var sync2 = $(_e).find(".navigation-thumbs");
+
+                var thumbnailItemClass = '.owl-item';
+
+                var slides = sync1.owlCarousel({
+                    video: true,
+                    startPosition: 0,
+                    items: 1,
+                    animateOut: 'fadeOut',
+                    loop: false,
+                    rewind: true,
+                    margin: 5,
+                    autoplay: false,
+                    autoplayHoverPause: true,
+                    autoplayTimeout: 7000,
+                    smartSpeed: 500,
+                    autoplayHoverPause: true,
+                    navText: [
+                        '<span><i class="fas fa-chevron-left"></i></span>',
+                        '<span><i class="fas fa-chevron-right"></i></span>'
+                    ],
+                    nav: true,
+                    dots: false
+                }).on('changed.owl.carousel', syncPosition);
+
+                function syncPosition(el) {
+                    $owl_slider = $(this).data('owl.carousel');
+                    var loop = $owl_slider.options.loop;
+
+                    if (loop) {
+                        var count = el.item.count - 1;
+                        var current = Math.round(el.item.index - (el.item.count / 2) - .5);
+                        if (current < 0) {
+                            current = count;
+                        }
+                        if (current > count) {
+                            current = 0;
+                        }
+                    } else {
+                        var current = el.item.index;
+
+                    }
+                    console.log(current);
+
+                    var owl_thumbnail = sync2.data('owl.carousel');
+                    var itemClass = "." + owl_thumbnail.options.itemClass;
+
+
+                    var thumbnailCurrentItem = sync2
+                        .find(itemClass)
+                        .removeClass("synced")
+                        .eq(current);
+
+                    thumbnailCurrentItem.addClass('synced');
+
+                    //if (!thumbnailCurrentItem.hasClass('active')) {
+                    var duration = 300;
+                    sync2.trigger('to.owl.carousel', [current - 2, duration, true]);
+                    //}
+                }
+                var thumbs = sync2.owlCarousel({
+                    startPosition: 0,
+                    items: 6,
+                    loop: false,
+                    margin: 10,
+                    autoplay: false,
+                    autoplayHoverPause: true,
+                    nav: true,
+                    navText: false,
+                    dots: false,
+                    responsive: {
+                        0: {
+                            items: 4,
+                            margin: 6
+                        },
+                        500: {
+                            items: 4,
+                            margin: 6
+                        },
+                        768: {
+                            items: 5,
+                            margin: 10
+                        },
+                        991: {
+                            margin: 10
+                        },
+                        1201: {
+                            margin: 10
+                        }
+                    },
+                    onInitialized: function (e) {
+                        var thumbnailCurrentItem = $(e.target).find(thumbnailItemClass).eq(this._current);
+                        thumbnailCurrentItem.addClass('synced');
+                    },
+                })
+
+                    .on('click', thumbnailItemClass, function (e) {
+                        e.preventDefault();
+                        var duration = 300;
+                        var itemIndex = $(e.target).parents(thumbnailItemClass).index();
+                        sync1.trigger('to.owl.carousel', [itemIndex, duration, true]);
+                    }).on("changed.owl.carousel", function (el) {
+                        //var number = el.item.index;
+                        //$owl_slider = sync1.data('owl.carousel');
+                        //$owl_slider.to(number, 100, true);
+                    });
+            })(this);
+        });
+
+
+        $(document).ready(function () {
+            $('.project-slide').owlCarousel({
+                loop: false,
+                margin: 0,
+                autoplay: false,
+                autoplayTimeout: 1500,
+                smartSpeed: 1000,
+                autoplayHoverPause: true,
+                mouseDrag: false,
+                dots: false,
+                nav: true,
+                navText: [
+                    '<i class="fas fa-chevron-left"></i>',
+                    '<i class="fas fa-chevron-right"></i>'
+                ],
+                responsive: {
+                    0: {
+                        items: 2,
+                        slideBy: 1,
+                        dots: false,
+                        nav: true
+                    },
+                    640: {
+                        items: 3,
+                        slideBy: 1
+                    },
+                    1024: {
+                        items: 4,
+                        slideBy: 1
+                    }
+                }
+            })
+        });
+    </script>
+}

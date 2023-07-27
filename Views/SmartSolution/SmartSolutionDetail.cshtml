@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["Title"] = "SmartSolutionDetail";
+    Layout = "~/Views/Shared/Layout/Frontend_Layout.cshtml";
+    var lang = Context.Request.Cookies["lang"];
+}
+@model Lighting.Areas.Identity.Data.Smart_Solution
+
+<div class="top-page">
+    <div class="container">
+        <div class="row">
+            <div class="col">SMART SOLUTION</div>
+        </div>
+    </div>
+</div>
+
+<!---------- SMART SOLUTION :: DETAIL ---------->
+<div class="content-padding foot-pad">
+    <div class="container-fluid">
+        <div class="wrap-pad solution-page">
+            <div class="row justify-content-center">
+                <div class="col-lg-11 col-12">
+                    <div class="row">
+                        <div class="col">
+                            @if(lang == "EN")
+                            {
+                                <h2>@Model.TitleName_EN</h2>
+                            }
+                            else
+                            {
+                                <h2>@Model.TitleName_TH</h2>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="img-width img-mb"><img src="~/@Model.DetailImg"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="txt-content indent">
+                                @if(lang == "EN")
+                                {
+                                    <p>@Html.Raw(Model.Explanation_EN)</p>
+                                }else
+                                {
+                                    <p>@Html.Raw(Model.Explanation_TH)</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-xl-10 col-lg-11 col-md-11 col-12">
+                            <ul class="solution-download">
+                                @if (Model.Links != null)
+                                {
+                                    foreach (var link in Model.Links)
+                                    {
+                                        <li><a href="@link.Link" target="_blank"><img src="~/@link.Path"></a></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col">
+                            @if(lang == "EN")
+                            {
+                                <p>@Html.Raw(Model.Content_EN)</p>
+                            }
+                            else
+                            {
+                                <p>@Html.Raw(Model.Content_TH)</p>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="content-center mt-4">
+                                <a class="buttonB" href="@Url.Action("SmartSolution","SmartSolution")"><i class="fas fa-long-arrow-alt-left"></i>Back</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

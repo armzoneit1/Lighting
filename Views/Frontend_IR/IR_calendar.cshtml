@@ -1,0 +1,259 @@
+﻿@{
+    ViewData["Title"] = "IR_calendar";
+    Layout = "~/Views/Shared/Layout/Frontend_Layout.cshtml";
+    var Count_IR_InvestorCalendar = (List<Lighting.Areas.Identity.Data.IR_InvestorCalendar>)ViewBag.IR_InvestorCalendar;
+    var Count_IR_InvestorCalendarDetail = (List<Lighting.Areas.Identity.Data.IR_InvestorCalendarDetail>)ViewBag.IR_InvestorCalendarDetail;
+
+    var language = "";
+    if (Context.Request.Cookies["lang"] == "EN")
+    {
+        language = "EN";
+    }
+    else
+    {
+        language = "TH";
+    }
+}
+
+@Html.Partial("~/Views/Shared/Inc/IR_inc_topmenu.cshtml")
+<input id="page_name" value="ir" hidden />
+
+<!---------- IR 08 NEWS ROOM :: CALENDAR ---------->
+<div class="content-padding foot-pad minH">
+    <div class="container-fluid">
+        <div class="wrap-pad">
+            <div class="row">
+                <div class="col">
+                    <div class="header-twoline">
+                        @if (Count_IR_InvestorCalendar.Count() != 0)
+                        {
+                            if (Context.Request.Cookies["lang"] == "EN")
+                            {
+                                foreach (var item in ViewBag.IR_InvestorCalendar)
+                                {
+                                    <h5>@item.Title_EN</h5>
+                                    <h1>@item.SubTitle_EN</h1>
+                                }
+                            }
+                            else
+                            {
+                                foreach (var item in ViewBag.IR_InvestorCalendar)
+                                {
+                                    <h5>@item.Title_TH</h5>
+                                    <h1>@item.SubTitle_TH</h1>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <h5 id="Title">ห้องข่าว</h5>
+                            <h1 id="SubTitle">ปฎิทินนักลงทุน</h1>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-3 col-md-4 col-8">
+                    <div class="input-form">
+                        <select class="form-select more-BD" name="ChangeYear" id="Year" onchange="GetData()"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="blueTB calendarTB">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>วันและเวลา</th>
+                                    <th>กิจกรรม</th>
+                                    <th>สถานที่</th>
+                                    <th>เอกสารประกอบ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="data-container"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="content-center">
+                        <nav aria-label="Page navigation example">
+                            <div id="pagination">
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        var getPagination;
+        $(function () {
+            GetData();
+            GetYear();
+        });
+
+        function GetData() {
+            let container = $('#pagination');
+            getPagination = function (dto) {
+                var local = "@language";
+                var title = function ({ activity_TH, activity_EN }, lag) {
+                    if (lag === "TH") {
+                        if (activity_TH == "null") {
+                            return activity_TH;
+                        } else {
+                            return activity_TH;
+                        }
+                    } else if (lag === "EN") {
+                        if (activity_EN == "null") {
+                            return activity_EN;
+                        } else {
+                            return activity_EN;
+                        }
+                    }
+                }
+
+                var details = function ({ position_TH, position_EN }, lag) {
+                    if (lag === "TH") {
+                        if (position_TH == "null") {
+                            return position_TH;
+                        } else {
+                            return position_TH;
+                        }
+                    } else if (lag === "EN") {
+                        if (position_EN == "null") {
+                            return position_EN;
+                        } else {
+                            return position_EN;
+                        }
+                    }
+                }
+                var date = function ({ newDate }, lag) {
+                    if (lag === "TH") {
+                        return getDateString(newDate);
+                    } else if (lag === "EN") {
+                        return getDateString(newDate);
+                    }
+                }
+
+                var file = function ({ fileNameTH, fileNameEN }, lag) {
+                    if (lag === "TH") {
+                        if (fileNameTH == "null") {
+                            return fileNameTH;
+                        } else {
+                            return fileNameTH;
+                        }
+                    } else if (lag === "EN") {
+                        if (fileNameEN == "null") {
+                            return fileNameEN;
+                        } else {
+                            return fileNameEN;
+                        }
+                    }
+                }
+
+                var GetId = function ({ id }, lag) {
+                    if (lag === "TH") {
+                        return id;
+                    } else if (lag === "EN") {
+                        return id;
+                    }
+                }
+
+                container.pagination({
+                    dataSource: dto,
+                    pageSize: 10,
+                    position: 'center',
+                    callback: function (data, pagination) {
+                        var dataHtml = ``;
+                        if (data.length > 0) {
+                            $.each(data, function (index, item) {
+                                var date = new Date(item.newDate);
+                                var optionsTH = { year: 'numeric', month: 'long', day: 'numeric' };
+                                var formattedDateTH = date.toLocaleDateString('th-TH', optionsTH);
+                                var optionsEN = { year: 'numeric', month: 'long', day: 'numeric' };
+                                var formattedDateEN = date.toLocaleDateString('en-US', optionsEN);
+                                dataHtml += `<tr>
+                                                                <td>
+                                                                    <ul class="date-time">`;
+                                if (local == "TH") {
+                                    dataHtml += formattedDateTH
+                                } else {
+                                    dataHtml += formattedDateEN
+                                }
+                                dataHtml += `</ul>
+                                                                </td>
+                                                                                                <td>` + title(item, local) + `</td>
+                                                                        <td>` + details(item, local) + `</td>
+                                                                <td>
+                                                                                         <a class="download-button" href="/upload_file/IR_NewRoom/`+ file(item, local) + `" target="_blank"><span>ดาวน์โหลด</span></a>
+                                                                </td>
+                                                            </tr>`;
+                            });
+                        }
+                        else {
+                            dataHtml += `<tr>
+                                                                <td>
+                                                                    <ul class="date-time">
+                                                                        <li>15 พฤศจิกายน 2565</li>
+                                                                        <li>15:15 - 16:00</li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td>บริษัทจดทะเบียนพบผู้ลงทุนสำหรับผลประกอบการไตรมาส 3/2565</td>
+                                                                <td>รับชมผ่านช่องทางออนไลน์</td>
+                                                                <td>
+                                                                    <a class="download-button" href="/Frontend_assets/images/testPDF.pdf" target="_blank"><span>ดาวน์โหลด</span></a>
+                                                                </td>
+                                                            </tr>`;
+                        }
+                        $("#data-container").html(dataHtml);
+                    }
+                });
+            }
+
+            getPagination(function (done) {
+                $.ajax({
+                    url: '/Frontend_IR/GetIR_calendar',
+                    type: 'GET',
+                    data: { Year: $("[name$='ChangeYear']").val() },
+                    success: function (response) {
+                        let pp = [];
+                        if (response && response.obj && Array.isArray(response.obj)) {
+                            response.obj.forEach(data => pp.push(data));
+                        } else {
+                            console.log('Invalid response or missing "obj" property');
+                        }
+                        done(pp);
+                    },
+                    error: function (error) {
+                        console.log('AJAX request failed:', error);
+                    }
+                });
+            });
+        }
+
+        function GetYear()
+        {
+            $.ajax({
+                url: '/Frontend_IR/GetIR_calendar_Year',
+                type: 'GET',
+                success: function (response) {
+                    var s = '<option selected>เลือกปี</option>';
+                    $.each(response, function (v, c) {
+                        s += '<option value="' + c.year + '">' + c.year + '</option>';
+                    });
+                    $("#Year").html(s);
+                },
+                error: function (error) {
+                    console.log('AJAX request failed:', error);
+                }
+            });
+        }
+
+    </script>
+}

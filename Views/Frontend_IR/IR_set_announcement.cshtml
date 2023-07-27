@@ -1,0 +1,228 @@
+﻿@{
+    ViewData["Title"] = "IR_set_announcement";
+    Layout = "~/Views/Shared/Layout/Frontend_Layout.cshtml";
+
+    var Count_IR_Stock_Market = (List<Lighting.Areas.Identity.Data.IR_Stock_Market>)ViewBag.GetIR_Stock_Market;
+    var Count_IR_NewDetail = (List<Lighting.Areas.Identity.Data.IR_NewDetail>)ViewBag.IR_NewDetail;
+
+    var language = "";
+    if (Context.Request.Cookies["lang"] == "EN")
+    {
+        language = "EN";
+    }
+    else
+    {
+        language = "TH";
+    }
+}
+
+@Html.Partial("~/Views/Shared/Inc/IR_inc_topmenu.cshtml")
+<input id="page_name" value="ir" hidden />
+
+<!---------- IR 08 NEWS ROOM :: SET ANNOUNCEMENT ---------->
+<div class="content-padding foot-pad">
+    <div class="container-fluid">
+        <div class="wrap-pad">
+            <div class="row">
+                <div class="col">
+                    <div class="header-twoline">
+                        @if (Count_IR_Stock_Market.Count() != 0)
+                        {
+                            if (Context.Request.Cookies["lang"] == "EN")
+                            {
+                                foreach (var item in ViewBag.GetIR_Stock_Market)
+                                {
+                                    <h5>@item.Title_EN</h5>
+                                    <h1>@item.SubTitle_EN</h1>
+                                }
+                            }
+                            else
+                            {
+                                foreach (var item in ViewBag.GetIR_Stock_Market)
+                                {
+                                    <h5>@item.Title_TH</h5>
+                                    <h1>@item.SubTitle_TH</h1>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <h5>ห้องข่าว</h5>
+                            <h1>ข่าวแจ้งตลาดหลักทรัพย์</h1>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-xl-9 col-lg-10 col-md-11 col-12">
+                    <div class="timeline-section" id="data-container"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="content-center">
+                        <nav aria-label="Page navigation example">
+                            <div id="pagination">
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+
+        var getPagination;
+        $(function () {
+            let container = $('#pagination');
+            getPagination = function (dto) {
+                var local = "@language";
+                var title = function ({ title_TH, title_EN }, lag) {
+                    if (lag === "TH") {
+                        if (title_TH == "null") {
+                            return title_TH;
+                        } else {
+                            return title_TH;
+                        }
+                    } else if (lag === "EN") {
+                        if (title_EN == "null") {
+                            return title_EN;
+                        } else {
+                            return title_EN;
+                        }
+                    }
+                }
+
+                var details = function ({ detail_TH, detail_EN }, lag) {
+                    if (lag === "TH") {
+                        if (detail_TH == "null") {
+                            return detail_TH;
+                        } else {
+                            return detail_TH;
+                        }
+                    } else if (lag === "EN") {
+                        if (detail_EN == "null") {
+                            return detail_EN;
+                        } else {
+                            return detail_EN;
+                        }
+                    }
+                }
+                var date = function ({ newDate }, lag) {
+                    if (lag === "TH") {
+                        return getDateString(newDate);
+                    } else if (lag === "EN") {
+                        return getDateString(newDate);
+                    }
+                }
+
+                var file = function ({ fileName_TH, fileName_EN }, lag) {
+                    if (lag === "TH") {
+                        if (fileName_TH == "null") {
+                            return fileName_TH;
+                        } else {
+                            return fileName_TH;
+                        }
+                    } else if (lag === "EN") {
+                        if (fileName_EN == "null") {
+                            return fileName_EN;
+                        } else {
+                            return fileName_EN;
+                        }
+                    }
+                }
+
+                var GetId = function ({ id }, lag) {
+                    if (lag === "TH") {
+                        return id;
+                    } else if (lag === "EN") {
+                        return id;
+                    }
+                }
+
+                container.pagination({
+                    dataSource: dto,
+                    pageSize: 10,
+                    position: 'center',
+                    callback: function (data, pagination) {
+                        var dataHtml = ``;
+                        if(data.length > 0)
+                        {
+                            $.each(data, function (index, item) {
+                            var date = new Date(item.newDate);
+                            var optionsTH = { year: 'numeric', month: 'long', day: 'numeric' };
+                            var formattedDateTH = date.toLocaleDateString('th-TH', optionsTH);
+
+                            var optionsEN = { year: 'numeric', month: 'long', day: 'numeric' };
+                            var formattedDateEN = date.toLocaleDateString('en-US', optionsEN);
+
+                            dataHtml += `<div class="newsBox">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <a class="news-content" href="../Frontend_IR/IR_set_announcement_detail/?Id=`+ GetId(item, local) + `">
+                                                                    <div class="news-topic">
+                                                                        <p>`+ title(item, local) + `</p>
+                                                                    </div>
+                                                                        <div class="news-date">`;
+                                                                            if (local == "TH") {
+                                                                                dataHtml += formattedDateTH
+                                                                            } else {
+                                                                                dataHtml += formattedDateEN
+                                                                            }
+                                                            dataHtml += `</div>
+                                                            <div class="txt-content">`+ details(item, local) + `</div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>`;
+                        });
+                        }else
+                        {
+                            dataHtml += `<div class="newsBox">
+                                <div class="row">
+                                    <div class="col">
+                                        <a class="news-content" href = "#">
+                                            <div class="news-topic">
+                                                <p>หัวข้อข่าวแจ้งตลาดหลักทรัพย์ หัวข้อข่าวแจ้งตลาดหลักทรัพย์ หัวข้อข่าวแจ้งตลาดหลักทรัพย์ </p>
+                                            </div>
+                                            <div class="news-date" > 18 FEB 2023 </div>
+                                            <div class="txt-content">
+                                                <p>อาข่าซี้อพาร์ตเมนท์ สโลว์ออร์แกนิคสโตน ดีไซน์เนอร์ซินโดรมพาสต้า รันเวย์ฮากกาด็อกเตอร์ อวอร์ดชิฟฟอนเอ็นทรานซ์ ชะโนดวอเตอร์ธรรมา บูมตะหงิดคองเกรสสถาปัตย์ ศึกษาศาสตร์เซาท์อัลบั้มสตริง วีซ่าวิลเลจแอ็คชั่น ปิโตรเคมีสติกเกอร์มิลค์ แพทเทิร์นผลักดันมายองเนสเนอะ เพนกวินเด้อคอมพ์โปรโมท พงษ์เปราะบาง พาร์ทเนอร์ แจ๊กเก็ตเซอร์วิสแอดมิชชั่นทอร์นาโดเทอร์โบ แฟลชอัลตราฉลุย </p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                             </div>`;
+                        }
+                        $("#data-container").html(dataHtml);
+                    }
+                });
+            }
+
+            getPagination(function (done) {
+                $.ajax({
+                    url: '/Frontend_IR/Get_IR_NewDetail',
+                    type: 'GET',
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        let pp = [];
+                        if (response && response.obj && Array.isArray(response.obj)) {
+                            response.obj.forEach(data => pp.push(data));
+                        } else {
+                            console.log('Invalid response or missing "obj" property');
+                        }
+                        done(pp);
+                    },
+                    error: function (error) {
+                        console.log('AJAX request failed:', error);
+                    }
+                });
+            });
+
+        });
+    </script>
+}

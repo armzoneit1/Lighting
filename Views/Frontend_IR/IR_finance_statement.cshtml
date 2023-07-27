@@ -1,0 +1,874 @@
+﻿@using System.Globalization
+
+@{
+    ViewData["Title"] = "IR_finance_statement";
+    Layout = "~/Views/Shared/Layout/Frontend_Layout.cshtml";
+
+    var language = "";
+    if (Context.Request.Cookies["lang"] == "EN")
+    {
+        language = "EN";
+    }
+    else
+    {
+        language = "TH";
+    }
+}
+
+@Html.Partial("~/Views/Shared/Inc/IR_inc_topmenu.cshtml")
+<input id="page_name" value="ir" hidden />
+
+
+<!---------- IR 03 FINANCIAL INFORMATION :: FINANCE STATEMENT ---------->
+<div class="content-padding foot-pad minH">
+    <div class="container-fluid">
+        <div class="wrap-pad">
+            <div class="row">
+                <div class="col">
+                    <div class="header-twoline">
+                        @if (Context.Request.Cookies["lang"] == "EN")
+                        {
+                            if (ViewBag.Header != null)
+                            {
+                                foreach (var item in ViewBag.Header)
+                                {
+                                    <h5>@item.titleENG</h5>
+                                    <h1>@item.detailsTitleENG</h1>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (ViewBag.Header != null)
+                            {
+                                foreach (var item in ViewBag.Header)
+                                {
+                                    <h5>@item.titleTH</h5>
+                                    <h1>@item.detailsTitleTH</h1>
+                                }
+                            }
+                        }
+
+                        @* <h5>ข้อมูลสำคัญทางการเงิน</h5>
+                        <h1>งบการเงิน</h1>*@
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-9 col-md-11 col-12">
+                    <div class="blueBox input-form three-colPad more-mb">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-12">
+                                <select class="form-select">
+                                    <option selected>เลือกปี</option>
+                                    <option value="1">2565</option>
+                                    <option value="2">2564</option>
+                                    <option value="3">2563</option>
+                                    <option value="4">2562</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-12">
+                                <select class="form-select">
+                                    <option selected>เลือกไตรมาส</option>
+                                    <option value="1">ไตรมาส 1</option>
+                                    <option value="2">ไตรมาส 2</option>
+                                    <option value="3">ไตรมาส 3</option>
+                                    <option value="4">ไตรมาส 4</option>
+                                    <option value="5">ตลอดทั้งปี</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-12">
+                                <select class="form-select">
+                                    <option selected>เลือกประเภท</option>
+                                    <option value="1">งบการเงินบริษัท</option>
+                                    <option value="2">งบการเงินรวม</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="content-center">
+                                    <a class="buttonB m-size" href=""><i class="fas fa-search"></i>ค้นหา</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <ul class="display-tab center financial-page">
+                        <li class="active" rel="1">
+                            <a href="javascript:void(0)">
+                                <div class="cate-txtBox">
+                                    @if (Context.Request.Cookies["lang"] == "EN")
+                                    {
+                                        if (ViewBag.Header != null)
+                                        {
+                                            foreach (var item in ViewBag.Header)
+                                            {
+                                                <div>@item.financial_positionTitleENG</div>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (ViewBag.Header != null)
+                                        {
+                                            foreach (var item in ViewBag.Header)
+                                            {
+                                                <div>@item.financial_positionTitleTH</div>
+                                            }
+                                        }
+                                    }
+
+                                    @*<div>งบแสดงฐานะการเงิน</div>*@
+                                </div>
+                            </a>
+                        </li>
+                        <li rel="2">
+                            <a href="javascript:void(0)">
+                                <div class="cate-txtBox">
+                                    @if (Context.Request.Cookies["lang"] == "EN")
+                                    {
+                                        if (ViewBag.Header != null)
+                                        {
+                                            foreach (var item in ViewBag.Header)
+                                            {
+                                                <div>@item.profitLoseTitleENG</div>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (ViewBag.Header != null)
+                                        {
+                                            foreach (var item in ViewBag.Header)
+                                            {
+                                                <div>@item.profitLoseTitleTH</div>
+                                            }
+                                        }
+                                    }
+
+                                    @*<div>งบกำไรขาดทุน</div>*@
+                                </div>
+                            </a>
+                        </li>
+                        <li rel="3">
+                            <a href="javascript:void(0)">
+                                <div class="cate-txtBox">
+                                    @if (Context.Request.Cookies["lang"] == "EN")
+                                    {
+                                        if (ViewBag.Header != null)
+                                        {
+                                            foreach (var item in ViewBag.Header)
+                                            {
+                                                <div>@item.Comprehensive_IncomeTitleENG</div>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (ViewBag.Header != null)
+                                        {
+                                            foreach (var item in ViewBag.Header)
+                                            {
+                                                <div>@item.Comprehensive_IncomeTitleTH</div>
+                                            }
+                                        }
+                                    }
+
+                                    @*<div>งบกำไรขาดทุนเบ็ดเสร็จอื่น</div>*@
+                                </div>
+                            </a>
+                        </li>
+                        <li rel="4">
+                            <a href="javascript:void(0)">
+                                <div class="cate-txtBox">
+                                    @if (Context.Request.Cookies["lang"] == "EN")
+                                    {
+                                        if (ViewBag.Header != null)
+                                        {
+                                            foreach (var item in ViewBag.Header)
+                                            {
+                                                <div>@item.cash_flowTitleENG</div>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (ViewBag.Header != null)
+                                        {
+                                            foreach (var item in ViewBag.Header)
+                                            {
+                                                <div>@item.cash_flowTitleTH</div>
+                                            }
+                                        }
+                                    }
+
+                                    @*<div>งบกระแสเงินสด</div>*@
+                                </div>
+                            </a>
+                        </li>
+                        <li rel="5">
+                            <a href="javascript:void(0)">
+                                <div class="cate-txtBox">
+                                    @if (Context.Request.Cookies["lang"] == "EN")
+                                    {
+                                        if (ViewBag.Header != null)
+                                        {
+                                            foreach (var item in ViewBag.Header)
+                                            {
+                                                <div>@item.download_financialTitleENG</div>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (ViewBag.Header != null)
+                                        {
+                                            foreach (var item in ViewBag.Header)
+                                            {
+                                                <div>@item.download_financialTitleTH</div>
+                                            }
+                                        }
+                                    }
+
+                                    @*<div>ดาว์นโหลดงบการเงิน</div>*@
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="display-group">
+                        <!---------- 01 STATEMENT FINANCIAL ---------->
+                        <div class="display-info" rel="1">
+                            <div class="row justify-content-center">
+                                <div class="col-xl-10 col-lg-11 col-12">
+                                    <div class="blueTB finance-statementTB">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    @if (Context.Request.Cookies["lang"] == "EN")
+                                                    {
+                                                        if (ViewBag.Header != null)
+                                                        {
+                                                            foreach (var item in ViewBag.Header)
+                                                            {
+                                                                <th>@item.listTitleENG</th>
+                                                                <th>@item.amountTitleENG</th>
+                                                                <th>@item.percentTitleENG</th>
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        if (ViewBag.Header != null)
+                                                        {
+                                                            foreach (var item in ViewBag.Header)
+                                                            {
+                                                                <th>@item.listTitleTH</th>
+                                                                <th>@item.amountTitleTH</th>
+                                                                <th>@item.percentTitleTH</th>
+                                                            }
+                                                        }
+                                                    }
+
+                                                    @*<th>รายการ</th>
+                                                    <th>ล้านบาท</th>
+                                                    <th>%</th>*@
+
+                                                </tr>
+                                            </thead>
+
+                                            @if (Context.Request.Cookies["lang"] == "EN")
+                                            {
+                                                if (ViewBag.Body1 != null)
+                                                {
+                                                    foreach (var item in ViewBag.Body1)
+                                                    {
+                                                        <thead class="sub-thead">
+                                                            <tr>
+                                                                <th colspan="3">@item.titleENG</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var details in ViewBag.Bodyfinancial_position)
+                                                            {
+                                                                if (item.id == details.financialPosition_id)
+                                                                {
+                                                                    <tr>
+                                                                        <td>@details.titleENG</td>
+                                                                        <td>@details.amount</td>
+                                                                        <td>@details.percent</td>
+                                                                    </tr>
+                                                                }
+                                                            }
+                                                        </tbody>
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (ViewBag.Body1 != null)
+                                                {
+                                                    foreach (var item in ViewBag.Body1)
+                                                    {
+                                                        <thead class="sub-thead">
+                                                            <tr>
+                                                                <th colspan="3">@item.titleTH</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @if (ViewBag.Bodyfinancial_position != null)
+                                                            {
+                                                                foreach (var details in ViewBag.Bodyfinancial_position)
+                                                                {
+                                                                    if (item.id == details.financialPosition_id)
+                                                                    {
+                                                                        <tr class="sub-topic">
+                                                                            <td>@details.titleTH</td>
+                                                                            <td>@details.amount</td>
+                                                                            <td>@details.percent</td>
+                                                                        </tr>
+                                                                    }
+                                                                }
+                                                            }
+                                                        </tbody>
+                                                    }
+                                                }
+                                            }
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- END/01 STATEMENT FINANCIAL -->
+                        <!---------- 02 INCOME STATEMENT ---------->
+                        <div class="display-info" rel="2">
+                            <div class="row justify-content-center">
+                                <div class="col-xl-10 col-lg-11 col-12">
+                                    <div class="blueTB finance-statementTB">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    @if (Context.Request.Cookies["lang"] == "EN")
+                                                    {
+                                                        if (ViewBag.Header != null)
+                                                        {
+                                                            foreach (var item in ViewBag.Header)
+                                                            {
+                                                                <th>@item.listTitleENG</th>
+                                                                <th>@item.amountTitleENG</th>
+                                                                <th>@item.percentTitleENG</th>
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        if (ViewBag.Header != null)
+                                                        {
+                                                            foreach (var item in ViewBag.Header)
+                                                            {
+                                                                <th>@item.listTitleTH</th>
+                                                                <th>@item.amountTitleTH</th>
+                                                                <th>@item.percentTitleTH</th>
+                                                            }
+                                                        }
+                                                    }
+
+                                                    @* <th>รายการ</th>
+                                                    <th>ล้านบาท</th>
+                                                    <th>%</th>*@
+                                                </tr>
+                                            </thead>
+                                            @if (Context.Request.Cookies["lang"] == "EN")
+                                            {
+                                                if (ViewBag.ContentProfit_Lose != null)
+                                                {
+                                                    <tbody>
+                                                        @if (ViewBag.ContentProfit_Lose != null)
+                                                        {
+                                                            foreach (var item2 in ViewBag.ContentProfit_Lose)
+                                                            {
+                                                                <tr class="sub-topic">
+                                                                    <td>@item2.titleENG</td>
+                                                                    <td>@item2.amount</td>
+                                                                    <td>@item2.percentProfit</td>
+                                                                </tr>
+                                                            }
+                                                        }
+
+                                                    </tbody>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (ViewBag.ContentProfit_Lose != null)
+                                                {
+                                                    <tbody>
+                                                        @if (ViewBag.ContentProfit_Lose != null)
+                                                        {
+                                                            foreach (var item2 in ViewBag.ContentProfit_Lose)
+                                                            {
+                                                                <tr class="sub-topic">
+                                                                    <td>@item2.titleTH</td>
+                                                                    <td>@item2.amount</td>
+                                                                    <td>@item2.percentProfit</td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    </tbody>
+                                                }
+                                            }
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- END/02 INCOME STATEMENT -->
+                        <!---------- 03 STATEMENT OTHER COMPREHENSIVE INCOME ---------->
+                        <div class="display-info" rel="3">
+                            <div class="row justify-content-center">
+                                <div class="col-xl-10 col-lg-11 col-12">
+                                    <div class="blueTB finance-statementTB">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    @if (Context.Request.Cookies["lang"] == "EN")
+                                                    {
+                                                        if (ViewBag.Header != null)
+                                                        {
+                                                            foreach (var item in ViewBag.Header)
+                                                            {
+                                                                <th>@item.listTitleENG</th>
+                                                                <th>@item.amountTitleENG</th>
+                                                                <th>@item.percentTitleENG</th>
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        if (ViewBag.Header != null)
+                                                        {
+                                                            foreach (var item in ViewBag.Header)
+                                                            {
+                                                                <th>@item.listTitleTH</th>
+                                                                <th>@item.amountTitleTH</th>
+                                                                <th>@item.percentTitleTH</th>
+                                                            }
+                                                        }
+                                                    }
+
+                                                    @* <th>รายการ</th>
+                                                    <th>ล้านบาท</th>
+                                                    <th>%</th>*@
+                                                </tr>
+                                            </thead>
+
+                                            @if (Context.Request.Cookies["lang"] == "EN")
+                                            {
+                                                if (ViewBag.ContentProfit_LoseOthers != null)
+                                                {
+                                                    <tbody>
+                                                        @if (ViewBag.ContentProfit_LoseOthers != null)
+                                                        {
+                                                            foreach (var item3 in ViewBag.ContentProfit_LoseOthers)
+                                                            {
+                                                                <tr class="sub-topic">
+                                                                    <td>@item3.titleENG</td>
+                                                                    <td>@item3.amount</td>
+                                                                    <td>@item3.percentProfit</td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    </tbody>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (ViewBag.ContentProfit_LoseOthers != null)
+                                                {
+                                                    <tbody>
+                                                        @if (ViewBag.ContentProfit_LoseOthers != null)
+                                                        {
+                                                            foreach (var item3 in ViewBag.ContentProfit_LoseOthers)
+                                                            {
+                                                                <tr class="sub-topic">
+                                                                    <td>@item3.titleENG</td>
+                                                                    <td>@item3.amount</td>
+                                                                    <td>@item3.percentProfit</td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    </tbody>
+                                                }
+                                            }
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div><!-- END/03 STATEMENT OTHER COMPREHENSIVE INCOME -->
+                        <!---------- 04 CASH FLOW STATEMENT ---------->
+                        <div class="display-info" rel="4">
+                            <div class="row justify-content-center">
+                                <div class="col-xl-10 col-lg-11 col-12">
+                                    <div class="blueTB finance-statementTB">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    @if (Context.Request.Cookies["lang"] == "EN")
+                                                    {
+                                                        if (ViewBag.Header != null)
+                                                        {
+                                                            foreach (var item in ViewBag.Header)
+                                                            {
+                                                                <th>@item.listTitleENG</th>
+                                                                <th>@item.amountTitleENG</th>
+                                                                <th>@item.percentTitleENG</th>
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        if (ViewBag.Header != null)
+                                                        {
+                                                            foreach (var item in ViewBag.Header)
+                                                            {
+                                                                <th>@item.listTitleTH</th>
+                                                                <th>@item.amountTitleTH</th>
+                                                                <th>@item.percentTitleTH</th>
+                                                            }
+                                                        }
+                                                    }
+
+                                                    @* <th>รายการ</th>
+                                                    <th>ล้านบาท</th>
+                                                    <th>%</th>*@
+                                                </tr>
+                                            </thead>
+
+                                            @if (Context.Request.Cookies["lang"] == "EN")
+                                            {
+                                                if (ViewBag.ContentCash_flow != null)
+                                                {
+                                                    <tbody>
+                                                        @if (ViewBag.ContentCash_flow != null)
+                                                        {
+                                                            foreach (var item3 in ViewBag.ContentCash_flow)
+                                                            {
+                                                                <tr>
+                                                                    <td>@item3.titleENG</td>
+                                                                    <td>@item3.amount</td>
+                                                                    <td>@item3.percentProfit</td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    </tbody>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (ViewBag.ContentCash_flow != null)
+                                                {
+                                                    <tbody>
+                                                        @if (ViewBag.ContentCash_flow != null)
+                                                        {
+                                                            foreach (var item3 in ViewBag.ContentCash_flow)
+                                                            {
+                                                                <tr>
+                                                                    <td>@item3.titleTH</td>
+                                                                    <td>@item3.amount</td>
+                                                                    <td>@item3.percentProfit</td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    </tbody>
+                                                }
+                                            }
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- END/04 CASH FLOW STATEMENT -->
+                        <!---------- 05 DOWNLOAD FINANCIAL STATEMENT ---------->
+                        <div class="display-info" rel="5">
+                            <div class="row justify-content-center">
+                                <div class="col-xl-9 col-lg-10 col-12">
+                                    <div class="blueTB financial-downloadTB">
+
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    @if (Context.Request.Cookies["lang"] == "EN")
+                                                    {
+                                                        if (ViewBag.Header != null)
+                                                        {
+                                                            foreach (var item in ViewBag.Header)
+                                                            {
+                                                                <th>@item.amountTitleENG</th>
+                                                                <th>@item.download_financialTitleENG</th>
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        if (ViewBag.Header != null)
+                                                        {
+                                                            foreach (var item in ViewBag.Header)
+                                                            {
+                                                                <th>@item.amountTitleTH</th>
+                                                                <th>@item.download_financialTitleTH</th>
+                                                            }
+                                                        }
+                                                    }
+
+                                                    @*<th>งบการเงิน</th>
+                                                    <th>วันที่</th>*@
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="data-container">
+                                            </tbody>
+                                            @*@if (Context.Request.Cookies["lang"] == "EN")
+                                            {
+                                            if (ViewBag.ContentDownload != null)
+                                            {
+                                            <tbody>
+                                            @if (ViewBag.ContentDownload != null)
+                                            {
+                                            foreach (var item5 in ViewBag.ContentDownload)
+                                            {
+                                            var confrimDate = Convert.ToDateTime(item5.inputDate);
+                                            var confrim_Date = confrimDate.ToString("dd/MM/yyyy", new CultureInfo("en-US"));
+
+                                            <tr>
+                                            <td>
+                                            <a href="~/upload_file/SH_IR_download_financialStatements/@item5.file_name_ENG" target="_blank">งบการเงิน ประจำปี 2565 (ตรวจสอบแล้ว)</a>
+                                            </td>
+                                            <td>@confrim_Date</td>
+                                            </tr>
+                                            }
+                                            }
+                                            </tbody>
+                                            }
+                                            }
+                                            else
+                                            {
+                                            if (ViewBag.ContentDownload != null)
+                                            {
+                                            <tbody>
+                                            @if (ViewBag.ContentDownload != null)
+                                            {
+                                            foreach (var item5 in ViewBag.ContentDownload)
+                                            {
+                                            var confrimDate = Convert.ToDateTime(item5.inputDate);
+                                            var confrim_DateTH = confrimDate.ToString("dd/MM/yyyy", new CultureInfo("th-TH"));
+
+                                            <tr>
+                                            <td>
+                                            <a href="~/upload_file/SH_IR_download_financialStatements/@item5.file_name" target="_blank">งบการเงิน ประจำปี 2565 (ตรวจสอบแล้ว)</a>
+                                            </td>
+                                            <td>@confrim_DateTH</td>
+                                            </tr>
+                                            }
+                                            }
+                                            </tbody>
+                                            }
+                                            }*@
+
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="content-center">
+                                        <nav aria-label="...">
+                                            <div id="pagination">
+                                            </div>
+
+                                            @*                                            <ul class="pagination">
+                                            <li class="page-item">
+                                            <a class="page-link" href="#" aria-label="Previous">
+                                            <i class="fas fa-arrow-left"></i>
+                                            </a>
+                                            </li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                            <li class="page-item">
+                                            <a class="page-link" href="#" aria-label="Next">
+                                            <i class="fas fa-arrow-right"></i>
+                                            </a>
+                                            </li>
+                                            </ul>
+
+                                            *@
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $(".display-tab > li").click(function () {
+                var rel = $(this).attr("rel");
+                $('.display-info').hide();
+                $('.display-info[rel=' + rel + ']').fadeIn();
+                $(".display-tab > li").removeClass("active");
+                $(this).addClass("active");
+            });
+        });
+
+
+        var getPagination;
+
+        $(function () {
+            //debugger;
+            let container = $('#pagination');
+            getPagination = function (dto) {
+                var local = "@language";
+
+                var title = function ({ titleTH, titleENG }, lag) {
+                    if (lag === "TH") {
+                        if (titleTH.toLowerCase() == "null") {
+                            return titleTH;
+                        } else {
+                            return titleTH;
+                        }
+                        //return FileDownload_TH;
+                    } else if (lag === "EN") {
+                        if (titleENG.toLowerCase() == "null") {
+                            return titleENG;
+                        } else {
+                            return titleENG;
+                        }
+                        //return FileDownload_ENG;
+                    }
+                }
+
+                var date = function ({ inputDate }, lag) {
+                    if (lag === "TH") {
+                        return getDateString(inputDate);
+                    } else if (lag === "EN") {
+                        return getDateString(inputDate);
+                    }
+                }
+
+                var file = function ({ file_name, file_name_ENG }, lag) {
+                    if (lag === "TH") {
+                        if (file_name.toLowerCase() == "null") {
+                            return file_name;
+                        } else {
+                            return file_name;
+                        }
+                        //return FileDownload_TH;
+                    } else if (lag === "EN") {
+                        if (file_name_ENG.toLowerCase() == "null") {
+                            return file_name_ENG;
+                        } else {
+                            return file_name_ENG;
+                        }
+                        //return FileDownload_ENG;
+                    }
+                }
+
+                var GetId = function ({ id }, lag) {
+                    if (lag === "TH") {
+                        return id;
+                    } else if (lag === "EN") {
+                        return id;
+                    }
+                }
+
+                container.pagination({
+                    dataSource: dto,
+                    pageSize: 15,
+                    position: 'center',
+                    callback: function (data, pagination) {
+                        var dataHtml = ``;
+
+                        $.each(data, function (index, item) {
+
+                            var date = new Date(item.inputDate);
+                            var optionsTH = { year: 'numeric', month: 'long', day: 'numeric' };
+                            var formattedDateTH = date.toLocaleDateString('th-TH', optionsTH);
+
+                            var optionsEN = { year: 'numeric', month: 'long', day: 'numeric' };
+                            var formattedDateEN = date.toLocaleDateString('en-US', optionsEN);
+
+                            dataHtml += `<tr>
+                                                <td >
+                                                    <a href="../upload_file/SH_IR_download_financialStatements/`+ file(item, local) + `" target = "_blank" > ` + title(item, local) + ` </a>
+                                                </td>
+                                                <td >`;
+                            if (local == "TH") {
+                                dataHtml += formattedDateTH
+                            } else {
+                                dataHtml += formattedDateEN
+                            }
+                            dataHtml += ` </td>
+                                                </tr>`;
+
+                        });
+
+                        dataHtml += ``;
+
+                        $("#data-container").html(dataHtml);
+                    }
+                });
+
+            }
+
+            getPagination(function (done) {
+                //debugger;
+                $.ajax({
+                    url: '/Frontend_IR/Get_IR_Finance_Statement',
+                    type: 'GET',
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+
+                        let pp = [];
+
+                        if (response && response.obj && Array.isArray(response.obj)) {
+                            response.obj.forEach(data => pp.push(data));
+                        } else {
+                            console.log('Invalid response or missing "obj" property');
+                        }
+
+                        done(pp);
+                    },
+                    error: function (error) {
+                        console.log('AJAX request failed:', error);
+                    }
+                });
+            });
+
+        });
+         
+
+    </script>
+
+}
+
