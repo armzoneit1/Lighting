@@ -31,6 +31,21 @@ namespace Lighting.Areas.Identity.Data
         public DbSet<Category_Project> Category_Projects { get; set; }
         public DbSet<ProjectRef> ProjectRefs { get; set; }
         #endregion
+        public DbSet<RF_Manufacturing_Images> RF_Manufacturing_Images { get; set; }
+        public DbSet<RF_Warehouse_Logistics_Images> RF_Warehouse_Logistics_Images { get; set; }
+        public DbSet<RF_Oversea_Offices_Images> RF_Oversea_Offices_Images { get; set; }
+        public DbSet<RF_Solid_States_Images> RF_Solid_States_Images { get; set; }
+        public DbSet<RF_Assembly_Services_Images> RF_Assembly_Services_Images { get; set; }
+        public DbSet<RF_Solution_Centers_Images> RF_Solution_Centers_Images { get; set; }
+        public DbSet<RF_Manufacturing> RF_Manufacturing { get; set; }
+        public DbSet<RF_Warehouse_Logistics> RF_Warehouse_Logistics { get; set; }
+        public DbSet<RF_Oversea_Offices> RF_Oversea_Offices { get; set; }
+        public DbSet<RF_Solid_States> RF_Solid_States { get; set; }
+        public DbSet<RF_Assembly_Services> RF_Assembly_Services { get; set; }
+        public DbSet<RF_Solution_Centers> RF_Solution_Centers { get; set; } 
+        public DbSet<cookies_policy> cookies_policy { get; set; }
+        public DbSet<privacy_PolicyTitles> privacy_PolicyTitles { get; set; }
+        public DbSet<privacy_Policys> privacy_Policys { get; set; }
         public DbSet<Download> Downloads { get; set; }
         public DbSet<ApplyJob> ApplyJobs { get; set; }
         #region contact
@@ -143,7 +158,22 @@ namespace Lighting.Areas.Identity.Data
         public DbSet<IR_Stock_LinkDetail> IR_Stock_LinkDetail { get; set; }
         public DbSet<IR_Stock_Quote> IR_Stock_Quote { get; set; }
         public DbSet<IR_Stock_QuoteDetail> IR_Stock_QuoteDetail { get; set; }
+
+
         public DbSet<IR_Banner> IR_Banner { get; set; }
+        public DbSet<Awards> Awards { get; set; }
+        public DbSet<AwardsDetail> AwardsDetail { get; set; }
+        public DbSet<History> History { get; set; }
+        public DbSet<HistoryDataDetail> HistoryDataDetail { get; set; }
+        public DbSet<HistoryDetail> HistoryDetail { get; set; }
+        public DbSet<IR_Button_Below_Banner> IR_Button_Below_Banner { get; set; }
+        public DbSet<IR_Investor_Relations> IR_Investor_Relations { get; set; }
+        public DbSet<IR_Investor_RelationsDetail> IR_Investor_RelationsDetail { get; set; }
+        public DbSet<IR_LIGHTING_EQUIPMENT> IR_LIGHTING_EQUIPMENT { get; set; }
+        public DbSet<IR_Report> IR_Report { get; set; }
+        public DbSet<Organization_Chart> Organization_Chart { get; set; }
+        public DbSet<Organization_ChartDetail> Organization_ChartDetail { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
