@@ -1759,9 +1759,9 @@ namespace Lighting.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "",
                             NormalizedUserName = "admin@lighting.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGs6YZP7RcR8kLTDL8YEiUITqkhuHB5laFzEKuQc8RqE4FlC1IgSVU0oYCm2iHHstw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO0/lW43CYIReKv8cecKIIunKCTboSC5RrDnjJ/X3dJI41vGzeFcsR7+SPEu4xyy4Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "25336051-d430-496e-9bac-d81cb95420b1",
+                            SecurityStamp = "6210bb62-9e68-4638-8c44-95f4a1748e03",
                             TwoFactorEnabled = false,
                             UserName = "Admin@Lighting.com"
                         });
@@ -3344,13 +3344,13 @@ namespace Lighting.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "835a33c0-8012-47bd-b729-155e48bacb1a",
-                            ConcurrencyStamp = "1fccdf60-163d-4828-a642-1e182888f17e",
+                            Id = "a5a00998-f58e-49ad-8cd6-0093c539e8aa",
+                            ConcurrencyStamp = "042ee99e-6436-495e-a514-1735ca4bb8ff",
                             Name = "Admin",
                             NameThai = "Admin",
                             NormalizedName = "Admin",
-                            created_at = new DateTime(2023, 7, 26, 10, 23, 46, 307, DateTimeKind.Utc).AddTicks(7505),
-                            updated_at = new DateTime(2023, 7, 26, 10, 23, 46, 307, DateTimeKind.Utc).AddTicks(7509)
+                            created_at = new DateTime(2023, 6, 26, 6, 16, 5, 104, DateTimeKind.Utc).AddTicks(1798),
+                            updated_at = new DateTime(2023, 6, 26, 6, 16, 5, 104, DateTimeKind.Utc).AddTicks(1810)
                         });
                 });
 
@@ -5116,8 +5116,8 @@ namespace Lighting.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "4ef5dbca-4f87-4f04-9d06-1ea129af10a3",
-                            RoleId = "835a33c0-8012-47bd-b729-155e48bacb1a"
+                            UserId = "e17f5d21-466e-4cff-8922-180a953e4044",
+                            RoleId = "a5a00998-f58e-49ad-8cd6-0093c539e8aa"
                         });
                 });
 

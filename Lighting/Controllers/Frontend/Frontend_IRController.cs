@@ -718,6 +718,8 @@ namespace Lighting.Controllers.Frontend
                         created_at = items.created_at,
                         file_name = items.file_name,
                         file_type = items.file_type,
+                        file_name_ENG = items.file_name_ENG,
+                        image_name_ENG = items.image_name_ENG,
                         id = items.id,
                         image_name = items.image_name,
                         title_file_en = items.title_file_en,
@@ -875,13 +877,13 @@ namespace Lighting.Controllers.Frontend
         }
         public async Task<IActionResult> IR_dividend()
         {
-            var data = db.SH_dividen.ToList();
+            var data = db.SH_dividen.OrderByDescending(x=>x.created_at).ToList();
             if (data.Count != 0)
             {
                 ViewBag.Header = data;
             }
 
-            var details = db.SH_dividen_Data.Where(x => x.use_status == 1).ToList();
+            var details = db.SH_dividen_Data.Where(x => x.use_status == 1).OrderByDescending(x=>x.created_at).ToList();
             if (details.Count != 0)
             {
                 ViewBag.Body = details;

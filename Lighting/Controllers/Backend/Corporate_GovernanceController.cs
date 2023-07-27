@@ -1410,7 +1410,7 @@ namespace Lighting.Controllers.Backend
         {
             try
             {
-                if (uploaded_image.Count == 0 || uploaded_file_ENG.Count == 0)
+                if (uploaded_image.Count == 0 || uploaded_image_ENG.Count == 0)
                 {
                     return Json(new { status = "error", message = "กรุณา Upload รูป" });
                 }
